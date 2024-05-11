@@ -1,10 +1,4 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link as RouterLink,
-} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import { ListGroup } from "react-bootstrap";
 

@@ -236,6 +236,11 @@
     js-yaml "4.1.0"
     nyc "15.1.0"
 
+"@cypress/react@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@cypress/react/-/react-8.0.1.tgz#9e7afb9a0a7d21ec5afffd852b32bf9c490e1dae"
+  integrity sha512-H2ZIEBVdPszORpIi50C71WD6K6UMi1ppUS9dYY9vSE7ptQiYp3Jc3O4VvBkqhIdihelymHwlsZ2da5G/TLJbPQ==
+
 "@cypress/request@^3.0.0":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-3.0.1.tgz#72d7d5425236a2413bd3d8bb66d02d9dc3168960"
@@ -908,11 +913,6 @@
     "@babel/plugin-transform-react-jsx-source" "^7.23.3"
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.14.0"
-
-"@wojtekmaj/react-hooks@^1.20.0":
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/@wojtekmaj/react-hooks/-/react-hooks-1.20.0.tgz#1d45a4a3b1268abe313d71f8fcc187b0fdd10212"
-  integrity sha512-GZFgtrZ+/ZtLHFP+F1JxzFRZUneCDfquqOBYDVuDjpCkaJ818FfeQ+NKAkAV6D/OL1fAczJ8+O/785aHqsuELw==
 
 abbrev@1:
   version "1.1.1"

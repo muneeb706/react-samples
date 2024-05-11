@@ -7,8 +7,12 @@ export default defineConfig({
       exclude: 'cypress/**/*.*',
     },
   },
-  e2e: {
-    baseUrl: 'http://localhost:3000',
+  component: {
+    devServer: {
+      framework: 'react',
+      bundler: 'vite',
+    },
+    specPattern: ['**/*.spec.cy.tsx'],
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
       return config;

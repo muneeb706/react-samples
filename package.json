@@ -9,10 +9,10 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "npx prettier --write ./src ./cypress",
     "preview": "vite preview",
-    "cy:run-e2e": "cypress run --e2e"
+    "coverage:report": "nyc report --reporter=text-summary --reporter=html",
+    "cy:run-component-test": "cypress run --component && coverage:report"
   },
   "dependencies": {
-    "@wojtekmaj/react-hooks": "^1.20.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "pdf-lib": "^1.17.1",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.36",
+    "@cypress/react": "^8.0.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",

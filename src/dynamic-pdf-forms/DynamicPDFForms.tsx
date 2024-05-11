@@ -1,35 +1,32 @@
+import { PDFDocument, StandardFonts, degrees, rgb } from "pdf-lib";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 import { useEffect, useState } from "react";
-import { pdfjs, Document, Page } from "react-pdf";
+import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import "./DynamicPDFForms.css";
-import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import { Container, Row, Col } from "react-bootstrap";
 
-import type { PDFDocumentProxy } from "pdfjs-dist";
-
+// Set the worker script for PDF.js to the path of the pdf.worker.min.js file relative to the current module
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url,
 ).toString();
 
+// Configuration options for react-pdf, specifying the paths for character maps and standard fonts
 const options = {
   cMapUrl: "/cmaps/",
   standardFontDataUrl: "/standard_fonts/",
 };
 
-const maxWidth = 800;
-
-type PDFFile = string | File | null;
+type PDFFile = { data: Uint8Array } | null;
 
 const DynamicPDFForms: React.FC = () => {
   const [file, setFile] = useState<PDFFile>(null);
   const [numPages, setNumPages] = useState<number>();
-  const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
-  const [containerWidth, setContainerWidth] = useState<number>();
 
   useEffect(() => {
-    const modifyPdf = async () => {
-      const url = "./sample.pdf";
+    const modifyPdf = async (pdfUrl: string) => {
+      const url = pdfUrl;
       const existingPdfBytes = await fetch(url).then((res) =>
         res.arrayBuffer(),
       );
@@ -51,9 +48,10 @@ const DynamicPDFForms: React.FC = () => {
       setFile({ data: pdfBytes });
     };
 
-    modifyPdf();
+    modifyPdf("./sample.pdf");
   }, []);
 
+  // Function to update the state with the number of pages when the PDF document has successfully loaded
   function onDocumentLoadSuccess({
     numPages: nextNumPages,
   }: PDFDocumentProxy): void {
@@ -61,33 +59,35 @@ const DynamicPDFForms: React.FC = () => {
   }
 
   return (
-    <div className="Example">
-      <header>
-        <h1>react-pdf sample page</h1>
-      </header>
-      <div className="Example__container">
-        <div className="Example__container__load">
-          <label htmlFor="file">Load from file:</label>{" "}
-        </div>
-        <div className="Example__container__document" ref={setContainerRef}>
-          <Document
-            file={file}
-            onLoadSuccess={onDocumentLoadSuccess}
-            options={options}
+    <Container className="text-center vh-100">
+      <Row className="m-4">
+        <Col>
+          <h1>Dynamic PDF Form</h1>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6}>
+          <div
+            className="border border-3"
+            style={{ height: "600px", overflowY: "auto" }}
           >
-            {Array.from(new Array(numPages), (el, index) => (
-              <Page
-                key={`page_${index + 1}`}
-                pageNumber={index + 1}
-                width={
-                  containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
-                }
-              />
-            ))}
-          </Document>
-        </div>
-      </div>
-    </div>
+            <Document
+              file={file}
+              onLoadSuccess={onDocumentLoadSuccess}
+              options={options}
+            >
+              {Array.from(new Array(numPages), (el, index) => (
+                <Page
+                  key={`page_${index + 1}`}
+                  pageNumber={index + 1}
+                  width={600}
+                />
+              ))}
+            </Document>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
