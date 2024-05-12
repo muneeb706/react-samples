@@ -10,7 +10,7 @@
     "format": "npx prettier --write ./src ./cypress",
     "preview": "vite preview",
     "coverage:report": "nyc report --reporter=text-summary --reporter=html",
-    "cy:run-component-test": "cypress run --component && coverage:report"
+    "cy:component-test": "cypress run --component && coverage:report"
   },
   "dependencies": {
     "axios": "^1.6.8",
