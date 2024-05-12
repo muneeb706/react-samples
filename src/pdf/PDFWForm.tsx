@@ -1,10 +1,10 @@
-import { PDFDocument, StandardFonts, degrees, rgb } from "pdf-lib";
+import { PDFDocument, PageSizes, StandardFonts } from "pdf-lib";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import { Container, Row, Col } from "react-bootstrap";
 
 // Set the worker script for PDF.js to the path of the pdf.worker.min.js file relative to the current module
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -20,8 +20,7 @@ const options = {
 
 type PDFFile = { data: Uint8Array } | null;
 
-// reference: https://pspdfkit.com/demo/forms
-const DynamicPDFForms: React.FC = () => {
+const PDFWForm: React.FC = () => {
   const [file, setFile] = useState<PDFFile>(null);
   const [numPages, setNumPages] = useState<number>();
 
@@ -34,17 +33,33 @@ const DynamicPDFForms: React.FC = () => {
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
       const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-      const pages = pdfDoc.getPages();
-      const firstPage = pages[0];
-      const { width, height } = firstPage.getSize();
-      firstPage.drawText("This text was added with JavaScript!", {
-        x: 5,
-        y: height / 2 + 300,
-        size: 50,
+      const newPage = pdfDoc.addPage(PageSizes.Letter);
+
+      newPage.drawText("Fill out following form", {
+        x: 50,
+        y: 700,
+        size: 20,
         font: helveticaFont,
-        color: rgb(0.95, 0.1, 0.1),
-        rotate: degrees(-45),
       });
+
+      const form = pdfDoc.getForm();
+      const firstNameField = form.createTextField("fullname");
+      firstNameField.setText("First Name..."); // Set default text
+      firstNameField.addToPage(newPage, {
+        x: 50,
+        y: 650,
+        height: 30,
+      });
+
+      const lastNameField = form.createTextField("lastname");
+      lastNameField.setText("Last Name..."); // Set default text
+      lastNameField.addToPage(newPage, {
+        x: 260,
+        y: 650,
+        height: 30,
+        width: 200,
+      });
+
       const pdfBytes = await pdfDoc.save();
       setFile({ data: pdfBytes });
     };
@@ -63,14 +78,14 @@ const DynamicPDFForms: React.FC = () => {
     <Container className="text-center vh-100">
       <Row className="m-4">
         <Col>
-          <h1>Dynamic PDF Form</h1>
+          <h1>PDF with form (not editable on browser)</h1>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col xs={12} md={8} lg={6}>
           <div
             className="border border-3"
-            style={{ height: "600px", overflowY: "auto" }}
+            style={{ height: "70vh", overflowY: "auto" }}
           >
             <Document
               file={file}
@@ -88,8 +103,22 @@ const DynamicPDFForms: React.FC = () => {
           </div>
         </Col>
       </Row>
+      {file?.data && (
+        <Row className="m-4 justify-content-center">
+          <Col xs={12} md={8} lg={6}>
+            <a
+              href={URL.createObjectURL(
+                new Blob([file.data], { type: "application/pdf" }),
+              )}
+              download="modified.pdf"
+            >
+              Download PDF
+            </a>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };
 
-export default DynamicPDFForms;
+export default PDFWForm;

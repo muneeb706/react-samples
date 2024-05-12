@@ -7,7 +7,7 @@ function App() {
     <>
       <ListGroup>
         <ListGroup.Item>
-          <RouterLink to="/dynamic-pdf-forms">Dynamic PDF Forms</RouterLink>
+          <RouterLink to="/pdf-w-form">Modify Existing PDF (react-pdf and pdf-lib)</RouterLink>
         </ListGroup.Item>
         {/* Add more ListGroup.Item components for more links */}
       </ListGroup>
