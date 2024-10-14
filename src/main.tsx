@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PDFWForm from "./pdf/PDFWForm.tsx";
 import App from "./App.tsx";
+import HistogramCard from "./graphs/HistogramCard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/pdf-w-form",
     element: <PDFWForm />,
+  },
+  {
+    path: "/histogram-card",
+    element: <HistogramCard />,
   },
 ]);
 
