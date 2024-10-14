@@ -10,5 +10,6 @@ describe("App", () => {
         </MemoryRouter>
       );
     cy.get('a[href="/pdf-w-form"]').should("exist");
+    cy.get('a[href="/histogram-card"]').should("exist");
   });
 });
