@@ -13,6 +13,7 @@
     "cy:component-test": "cypress run --component && coverage:report"
   },
   "dependencies": {
+    "@nivo/bar": "^0.87.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "pdf-lib": "^1.17.1",

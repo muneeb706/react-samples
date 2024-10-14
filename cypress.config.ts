@@ -8,6 +8,8 @@ export default defineConfig({
     },
   },
   component: {
+    screenshotOnRunFailure: false,
+    video: false,
     devServer: {
       framework: 'react',
       bundler: 'vite',
