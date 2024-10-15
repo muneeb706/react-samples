@@ -1,0 +1,81 @@
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.progress-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the text */
+    /* Align text with the center of the circle */
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.circle {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 1;
+}
+
+.circle.completed {
+    background-color: #3fc0b7;
+    /* Background for completed circles */
+    border: 2px solid #3fc0b7;
+    /* Border matches the background */
+    color: white;
+}
+
+.circle.pending {
+    background-color: transparent;
+    border: 2px solid #3fc0b7;
+    /* Gray border for pending tasks */
+}
+
+/* Vertical line between circles */
+.progress-item::before {
+    content: "";
+    position: absolute;
+    top: 45px;
+    /* Top of the circle */
+    left: 21px;
+    /* Aligns the line with the center of the circle */
+    width: 4px;
+    /* Thicker line */
+    height: 70%;
+    /* 75% height for better proportions */
+    background-color: #3fc0b7;
+    /* Color of completed lines */
+    z-index: 0;
+}
+
+.progress-item:last-child::before {
+    display: none;
+}
+
+.text {
+    margin-left: 20px;
+    font-size: 24px;
+    z-index: 1;
+    text-align: right; /* Right-align the text */
+}
+
+.completed-text {
+    font-weight: bold;
+    color: #2b2e33;
+}
+
+.pending-text {
+    color: grey;
+}
+
+#continue-btn {
+    margin-top: 20px;
+}

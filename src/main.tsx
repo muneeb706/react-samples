@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PDFWForm from "./pdf/PDFWForm.tsx";
 import App from "./App.tsx";
 import HistogramCard from "./graphs/HistogramCard.tsx";
+import Congratulations from "./pages/Congratulations.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/histogram-card",
     element: <HistogramCard />,
+  },
+  {
+    path: "/congratulations",
+    element: <Congratulations />,
   },
 ]);
 

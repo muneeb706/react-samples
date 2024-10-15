@@ -2,15 +2,24 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
+import "./index.css";
+
 function App() {
   return (
     <>
       <ListGroup>
         <ListGroup.Item>
-          <RouterLink to="/pdf-w-form">Modify Existing PDF (react-pdf and pdf-lib)</RouterLink>
+          <RouterLink to="/pdf-w-form">
+            Modify Existing PDF (react-pdf and pdf-lib)
+          </RouterLink>
         </ListGroup.Item>
         <ListGroupItem>
-          <RouterLink to="/histogram-card">Histogram Card (nivo rocks)</RouterLink>
+          <RouterLink to="/histogram-card">
+            Histogram Card (nivo rocks)
+          </RouterLink>
+        </ListGroupItem>
+        <ListGroupItem>
+          <RouterLink to="/congratulations">Congratulations Page</RouterLink>
         </ListGroupItem>
       </ListGroup>
     </>
