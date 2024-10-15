@@ -12,26 +12,31 @@ describe("HistogramCard Component", () => {
     cy.get("svg").should("exist");
     cy.get("svg").find("g > rect").should("have.length", 5); // 5 bars
 
-    // Check if the button to view past scores is rendered
-    cy.get("button").contains("View Past Scores").should("exist");
+    // Check if the dropdown filter is rendered
+    cy.get("select").should("exist");
   });
 
-  it.only('opens the modal and displays past histograms', () => {
+  it("updates the histogram when a past assignment is selected", () => {
     mount(<HistogramCard />);
-    
-    // Click the button to open the modal
-    cy.get('button').contains('View Past Scores').click();
 
-    // Check if the past histograms are rendered in the modal
-    cy.get('.modal-body').within(() => {
-      cy.get('h5').contains('2023-10-01').should('exist');
-      cy.get('h5').contains('2023-10-02').should('exist');
+    // Select a past assignment from the dropdown
+    cy.get("select").select("2023-10-01");
 
-      // Check if the histograms are rendered
-      cy.get('svg').should('have.length', 2); // Two past histograms
-    });
+    // Check if the histogram is updated
+    cy.get("h5").contains("2023-10-01").should("exist");
+    cy.get("svg").should("exist");
+    cy.get("svg").find("g > rect").should("have.length", 5); // 5 bars for the selected date
+  });
 
-    // Close the modal
-    cy.get('.modal-footer').contains('Close').click();
+  it("updates the histogram when 'Last Assignment' is selected", () => {
+    mount(<HistogramCard />);
+
+    // Select 'Last Assignment' from the dropdown
+    cy.get("select").select("Last Assignment");
+
+    // Check if the histogram is updated
+    cy.get("h5").contains(new Date().toISOString().split('T')[0]).should("exist");
+    cy.get("svg").should("exist");
+    cy.get("svg").find("g > rect").should("have.length", 5); // 5 bars for the current data
   });
 });
