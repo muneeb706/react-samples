@@ -19,7 +19,7 @@ function App() {
           </RouterLink>
         </ListGroupItem>
         <ListGroupItem>
-          <RouterLink to="/congratulations">Congratulations Page</RouterLink>
+          <RouterLink to="/congratulations">Congratulations Page (with confetti)</RouterLink>
         </ListGroupItem>
       </ListGroup>
     </>
