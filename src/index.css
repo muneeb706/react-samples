@@ -3,56 +3,39 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    left: -10px
 }
 
 .progress-item {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Right-align the text */
     /* Align text with the center of the circle */
     margin-bottom: 30px;
     position: relative;
+    width: 100%;
 }
 
-.circle {
-    height: 45px;
-    width: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    z-index: 1;
+.completed-icon {
+    color: #3fc0b7; /* Color for completed icons */
+    margin-right: 20px; /* Space between icon and text */
 }
 
-.circle.completed {
-    background-color: #3fc0b7;
-    /* Background for completed circles */
-    border: 2px solid #3fc0b7;
-    /* Border matches the background */
-    color: white;
+.pending-icon {
+    color: grey; /* Color for pending icons */
+    margin-right: 20px; /* Space between icon and text */
 }
 
-.circle.pending {
-    background-color: transparent;
-    border: 2px solid #3fc0b7;
-    /* Gray border for pending tasks */
-}
 
 /* Vertical line between circles */
 .progress-item::before {
     content: "";
     position: absolute;
-    top: 45px;
-    /* Top of the circle */
-    left: 21px;
-    /* Aligns the line with the center of the circle */
+    top: 140%;
+    left: 19px; /* Adjust this value to align with the center of the icons */
+    transform: translateY(-50%);
     width: 4px;
-    /* Thicker line */
-    height: 70%;
-    /* 75% height for better proportions */
+    height: calc(90%); /* Adjust the height to span between items */
     background-color: #3fc0b7;
-    /* Color of completed lines */
     z-index: 0;
 }
 
@@ -60,9 +43,14 @@
     display: none;
 }
 
+.text-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the text */
+}
+
 .text {
-    margin-left: 20px;
-    font-size: 24px;
+    font-size: 20px;
     z-index: 1;
     text-align: right; /* Right-align the text */
 }
