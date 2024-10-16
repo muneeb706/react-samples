@@ -18,6 +18,7 @@ const Congratulations: React.FC = () => {
       />
       <Row className="w-100">
         <Col className="text-center">
+          {/*https://creazilla.com/media/emoji/47695/party-popper*/}
           <img
             src="/party-popper.png"
             alt="Party Popper"
