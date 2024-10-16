@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import Confetti from "react-confetti"; // Import the Confetti component from react-confetti
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa"; // Import the check circle and regular circle icons from react-icons
 
 const Congratulations: React.FC = () => {
@@ -8,6 +9,13 @@ const Congratulations: React.FC = () => {
       fluid
       className="d-flex flex-column justify-content-center align-items-center mt-3"
     >
+      <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        recycle={false}
+        numberOfPieces={1000}
+        tweenDuration={10000}
+      />
       <Row className="w-100">
         <Col className="text-center">
           <img
