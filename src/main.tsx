@@ -6,6 +6,7 @@ import PDFWForm from "./pdf/PDFWForm.tsx";
 import App from "./App.tsx";
 import HistogramCard from "./graphs/HistogramCard.tsx";
 import Congratulations from "./pages/Congratulations.tsx";
+import WelcomeBack from "./modals/WelcomeBack.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/congratulations",
     element: <Congratulations />,
+  },
+  {
+    path: "/welcome-back",
+    element: <WelcomeBack />,
   },
 ]);
 

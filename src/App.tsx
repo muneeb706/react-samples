@@ -21,6 +21,9 @@ function App() {
         <ListGroupItem>
           <RouterLink to="/congratulations">Congratulations Page (with confetti)</RouterLink>
         </ListGroupItem>
+        <ListGroupItem>
+          <RouterLink to="/welcome-back">Welcome Back Modal</RouterLink>
+        </ListGroupItem>
       </ListGroup>
     </>
   );
