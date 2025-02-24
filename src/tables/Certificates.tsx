@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useTable, useFilters, Column } from "react-table";
 import { Table, Input, NavLink } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import TextSearchFilter from "./filters/TextSearchFilter";
+import SlideInPanel from "../panels/SlideInPanel"; // Import the SlideInPanel component
 
 // Define data interface for Certificate
 interface Certificate {
@@ -61,6 +62,10 @@ const mockCertificateData: Certificate[] = [
 type FilterValue = string | number | boolean | undefined;
 
 const Certificates: React.FC = () => {
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [selectedCertificate, setSelectedCertificate] =
+    useState<Certificate | null>(null);
+
   const data: Certificate[] = useMemo(() => mockCertificateData, []);
 
   const columns: Column<Certificate>[] = useMemo(
@@ -157,8 +162,8 @@ const Certificates: React.FC = () => {
               color="link"
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                 e.preventDefault();
-                alert(`View users for ${row.original.certificateLabel}`);
-                // Implement slide-in panel logic here later
+                setSelectedCertificate(row.original);
+                setIsPanelOpen(true);
               }}
             >
               <a href="#">View Users</a>{" "}
@@ -211,7 +216,17 @@ const Certificates: React.FC = () => {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>
+                  <td
+                    {...cell.getCellProps()}
+                    style={
+                      selectedCertificate?.certificateCode ===
+                      row.original.certificateCode
+                        ? {
+                            backgroundColor: "#f0f8ff",
+                          } /* Light blue background color */
+                        : {}
+                    }
+                  >
                     {cell.render("Cell") as React.ReactNode}
                   </td>
                 ))}
@@ -220,6 +235,19 @@ const Certificates: React.FC = () => {
           })}
         </tbody>
       </Table>
+      <SlideInPanel isOpen={isPanelOpen} onClose={() => setIsPanelOpen(false)}>
+        <h3>{selectedCertificate?.certificateLabel}</h3>
+        <p>Certificate Code: {selectedCertificate?.certificateCode}</p>
+        <p>Is Active: {selectedCertificate?.isActive ? "Yes" : "No"}</p>
+        <p>Expiry: {selectedCertificate?.expiry}</p>
+        {selectedCertificate?.expiry === "Yes" && (
+          <p>Expiry Years: {selectedCertificate?.expiryYears}</p>
+        )}
+        <p>
+          Has Expired Users:{" "}
+          {selectedCertificate?.hasExpiredUsers ? "Yes" : "No"}
+        </p>
+      </SlideInPanel>
     </div>
   );
 };

@@ -1,107 +1,143 @@
 .progress-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    left: -10px
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: -10px;
 }
 
 .progress-item {
-    display: flex;
-    align-items: center;
-    /* Align text with the center of the circle */
-    margin-bottom: 30px;
-    position: relative;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  /* Align text with the center of the circle */
+  margin-bottom: 30px;
+  position: relative;
+  width: 100%;
 }
 
 .completed-icon {
-    color: #3fc0b7;
-    /* Color for completed icons */
-    margin-right: 20px;
-    /* Space between icon and text */
+  color: #3fc0b7;
+  /* Color for completed icons */
+  margin-right: 20px;
+  /* Space between icon and text */
 }
 
 .pending-icon {
-    color: grey;
-    /* Color for pending icons */
-    margin-right: 20px;
-    /* Space between icon and text */
+  color: grey;
+  /* Color for pending icons */
+  margin-right: 20px;
+  /* Space between icon and text */
 }
-
 
 /* Vertical line between circles */
 .progress-item::before {
-    content: "";
-    position: absolute;
-    top: 140%;
-    left: 19px;
-    /* Adjust this value to align with the center of the icons */
-    transform: translateY(-50%);
-    width: 4px;
-    height: calc(90%);
-    /* Adjust the height to span between items */
-    background-color: #3fc0b7;
-    z-index: 0;
+  content: "";
+  position: absolute;
+  top: 140%;
+  left: 19px;
+  /* Adjust this value to align with the center of the icons */
+  transform: translateY(-50%);
+  width: 4px;
+  height: calc(90%);
+  /* Adjust the height to span between items */
+  background-color: #3fc0b7;
+  z-index: 0;
 }
 
 .progress-item:last-child::before {
-    display: none;
+  display: none;
 }
 
 .text-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    /* Right-align the text */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* Right-align the text */
 }
 
 .text {
-    font-size: 20px;
-    z-index: 1;
-    text-align: right;
-    /* Right-align the text */
+  font-size: 20px;
+  z-index: 1;
+  text-align: right;
+  /* Right-align the text */
 }
 
 .completed-text {
-    font-weight: bold;
-    color: #2b2e33;
+  font-weight: bold;
+  color: #2b2e33;
 }
 
 .pending-text {
-    color: grey;
+  color: grey;
 }
 
 #continue-btn {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Welcome Back Modal */
 .custom-modal-header {
-    background-color: #add8e6;
-    color: black;
-    position: relative;
-    /*padding-bottom: 40px; /* Increase space for the curve */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #add8e6;
+  color: black;
+  position: relative;
+  /*padding-bottom: 40px; /* Increase space for the curve */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .custom-modal-header::after {
-    content: "";
-    position: absolute;
-    bottom: -20px; /* Adjust this value to control the curve depth */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 20px; /* Adjust this value to control the curve height */
-    background-color: #add8e6;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  /* Adjust this value to control the curve depth */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 20px;
+  /* Adjust this value to control the curve height */
+  background-color: #add8e6;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .custom-modal-body {
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    margin-top: 20px; /* Increase separation from the header */
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-top: 20px;
+  /* Increase separation from the header */
+}
+
+/* Slide-in Panel */
+.slide-in-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 400px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.slide-in-panel.open {
+  right: 0;
+}
+
+.slide-in-panel-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.slide-in-panel-content {
+  padding: 20px;
 }

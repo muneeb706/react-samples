@@ -1,4 +1,3 @@
-import React from "react";
 import { mount } from "@cypress/react";
 import Certificates from "../../src/tables/Certificates"; // Adjust the import path as needed
 import "../../src/index.css"; // Import any necessary styles
