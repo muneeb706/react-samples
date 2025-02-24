@@ -7,6 +7,9 @@ import App from "./App.tsx";
 import HistogramCard from "./graphs/HistogramCard.tsx";
 import Congratulations from "./pages/Congratulations.tsx";
 import WelcomeBack from "./modals/WelcomeBack.tsx";
+import Certificates from "./tables/Certificates.tsx";
+
+import "regenerator-runtime/runtime";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/welcome-back",
     element: <WelcomeBack />,
+  },
+  {
+    path: "/certificates",
+    element: <Certificates />,
   },
 ]);
 

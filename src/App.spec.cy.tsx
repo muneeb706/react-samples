@@ -11,5 +11,6 @@ describe("App", () => {
       );
     cy.get('a[href="/pdf-w-form"]').should("exist");
     cy.get('a[href="/histogram-card"]').should("exist");
+    cy.get('a[href="/certificates"]').should("exist");
   });
 });

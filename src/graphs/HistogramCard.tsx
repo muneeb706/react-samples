@@ -4,8 +4,6 @@ import {
   Container,
   Row,
   Col,
-  Button,
-  Modal,
   Form,
 } from "react-bootstrap";
 import Histogram from "./Histogram";
@@ -49,7 +47,7 @@ const pastDataSets = [
 const HistogramCard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(event.target.value);
   };
 

@@ -24,6 +24,9 @@ function App() {
         <ListGroupItem>
           <RouterLink to="/welcome-back">Welcome Back Modal</RouterLink>
         </ListGroupItem>
+        <ListGroupItem>
+          <RouterLink to="/certificates">Certificates</RouterLink>
+        </ListGroupItem>
       </ListGroup>
     </>
   );
