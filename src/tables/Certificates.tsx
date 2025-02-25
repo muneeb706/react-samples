@@ -2,9 +2,9 @@ import React, { useMemo, useState } from "react";
 import { useTable, useFilters, Column } from "react-table";
 import { Table, Input, NavLink } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faWarning } from "@fortawesome/free-solid-svg-icons";
 import TextSearchFilter from "./filters/TextSearchFilter";
-import SlideInPanel from "../panels/SlideInPanel"; // Import the SlideInPanel component
+import "../index.css"; // Import the CSS file for styling
 
 // Define data interface for Certificate
 interface Certificate {
@@ -14,6 +14,14 @@ interface Certificate {
   expiry: "Yes" | "No";
   expiryYears?: number; // Optional, only if expiry is 'Yes'
   hasExpiredUsers: boolean; // Flag to indicate if any user has an expired certificate
+}
+
+// Define data interface for User Certificate
+interface UserCertificate {
+  firstName: string;
+  lastName: string;
+  username: string;
+  expirationDate: string; // Assuming date is in string format initially, e.g., "2024-12-31"
 }
 
 // Mock data for certificates
@@ -55,6 +63,40 @@ const mockCertificateData: Certificate[] = [
     isActive: false,
     expiry: "No",
     hasExpiredUsers: false,
+  },
+];
+
+// Mock data for users in the slide-in panel
+const mockUserCertificateData: UserCertificate[] = [
+  {
+    firstName: "John",
+    lastName: "Doe",
+    username: "johndoe",
+    expirationDate: "2024-12-31",
+  },
+  {
+    firstName: "Jane",
+    lastName: "Smith",
+    username: "janesmith",
+    expirationDate: "2025-03-15",
+  },
+  {
+    firstName: "Robert",
+    lastName: "Brown",
+    username: "robertbrown",
+    expirationDate: "2024-11-20",
+  },
+  {
+    firstName: "Alice",
+    lastName: "Johnson",
+    username: "alicejohnson",
+    expirationDate: "2026-01-10",
+  },
+  {
+    firstName: "Michael",
+    lastName: "Davis",
+    username: "michaeldavis",
+    expirationDate: "2025-05-01",
   },
 ];
 
@@ -192,62 +234,91 @@ const Certificates: React.FC = () => {
     );
 
   return (
-    <div className="m-4">
-      <Table {...getTableProps()} bordered>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
-                  <div className="mb-4">
-                    {"Filter" in column
-                      ? (column.render("Filter") as React.ReactNode)
-                      : null}
-                  </div>
-                  {column.render("Header") as React.ReactNode}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td
-                    {...cell.getCellProps()}
-                    style={
-                      selectedCertificate?.certificateCode ===
-                      row.original.certificateCode
-                        ? {
-                            backgroundColor: "#f0f8ff",
-                          } /* Light blue background color */
-                        : {}
-                    }
-                  >
-                    {cell.render("Cell") as React.ReactNode}
-                  </td>
+    <div className={`container mt-5 ${isPanelOpen ? "shrink" : ""}`}>
+      <div
+        className={`table-container ${isPanelOpen ? "shrink" : ""}`}
+        data-testid="certificate-table-container"
+      >
+        <Table {...getTableProps()} bordered>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()} className="table-header">
+                    <div className="filter-container">
+                      {"Filter" in column
+                        ? (column.render("Filter") as React.ReactNode)
+                        : null}
+                    </div>
+                    {column.render("Header") as React.ReactNode}
+                  </th>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      <SlideInPanel isOpen={isPanelOpen} onClose={() => setIsPanelOpen(false)}>
-        <h3>{selectedCertificate?.certificateLabel}</h3>
-        <p>Certificate Code: {selectedCertificate?.certificateCode}</p>
-        <p>Is Active: {selectedCertificate?.isActive ? "Yes" : "No"}</p>
-        <p>Expiry: {selectedCertificate?.expiry}</p>
-        {selectedCertificate?.expiry === "Yes" && (
-          <p>Expiry Years: {selectedCertificate?.expiryYears}</p>
-        )}
-        <p>
-          Has Expired Users:{" "}
-          {selectedCertificate?.hasExpiredUsers ? "Yes" : "No"}
-        </p>
-      </SlideInPanel>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td
+                      {...cell.getCellProps()}
+                      style={
+                        selectedCertificate?.certificateCode ===
+                        row.original.certificateCode
+                          ? { backgroundColor: "#e0f7fa" }
+                          : {}
+                      }
+                    >
+                      {cell.render("Cell") as React.ReactNode}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+      <div className={`slide-in-panel ${isPanelOpen ? "open" : ""}`}>
+        <div className="slide-in-panel-header">
+          <h3>{selectedCertificate?.certificateLabel}</h3>
+          <button
+            className="close-button"
+            onClick={() => setIsPanelOpen(false)}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        </div>
+        <div className="slide-in-panel-content">
+          {/* User Table */}
+          <Table bordered>
+            {" "}
+            {/* Use reactstrap Table for styling consistency */}
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Expiration Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mockUserCertificateData.map(
+                (
+                  user,
+                  index // Iterate over mock user data
+                ) => (
+                  <tr key={index}>
+                    <td>{`${user.firstName} ${user.lastName} (${user.username})`}</td>{" "}
+                    {/* User Column */}
+                    <td>{user.expirationDate}</td>{" "}
+                    {/* Expiration Date Column */}
+                  </tr>
+                )
+              )}
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </div>
   );
 };

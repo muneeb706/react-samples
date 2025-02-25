@@ -109,20 +109,32 @@
 }
 
 /* Slide-in Panel */
+.container {
+  display: flex;
+  /* transition: all 0.3s ease;  Removed transition from container */
+}
+
+.table-container {
+  flex: 1;
+  /* transition: flex 0.3s ease; Removed transition from table-container flex */
+}
+
+.table-container.shrink {
+  flex: 1;
+}
+
 .slide-in-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 400px;
-  height: 100%;
-  background-color: white;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-  transition: right 0.3s ease;
-  z-index: 1000;
+  position: relative;
+  width: 0;
+  overflow: hidden;
+  /* transition: width 0.3s ease; Removed transition from slide-in-panel width */
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px; /* Add left margin here to create space */
 }
 
 .slide-in-panel.open {
-  right: 0;
+  width: 30%; /* Panel takes 30% of the space - adjust as needed */
 }
 
 .slide-in-panel-header {
@@ -136,8 +148,32 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.close-button:hover {
+  color: red;
 }
 
 .slide-in-panel-content {
-  padding: 20px;
+  padding: 10px;
+  flex: 1;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .slide-in-panel {
+    width: 100%;
+  }
+
+  .table-container.shrink {
+    flex: 1;
+  }
+}
+
+.selected-row {
+  background-color: #e0f7fa; /* A light cyan/blue background */
+ 
 }

@@ -10,14 +10,24 @@ describe("Certificates Component", () => {
 
   it("should render the table with certificate data", () => {
     // Check if the table is rendered
-    cy.get("table").should("exist");
+    cy.get('[data-testid="certificate-table-container"] table').should("exist");
 
     // Check if the table headers are rendered
-    cy.get("th").contains("Certificate Code").should("exist");
-    cy.get("th").contains("Certificate Label").should("exist");
-    cy.get("th").contains("Is Active").should("exist");
-    cy.get("th").contains("Expiry").should("exist");
-    cy.get("th").contains("Action").should("exist");
+    cy.get('[data-testid="certificate-table-container"] th')
+      .contains("Certificate Code")
+      .should("exist");
+    cy.get('[data-testid="certificate-table-container"] th')
+      .contains("Certificate Label")
+      .should("exist");
+    cy.get('[data-testid="certificate-table-container"] th')
+      .contains("Is Active")
+      .should("exist");
+    cy.get('[data-testid="certificate-table-container"] th')
+      .contains("Expiry")
+      .should("exist");
+    cy.get('[data-testid="certificate-table-container"] th')
+      .contains("Action")
+      .should("exist");
   });
 
   it("should filter certificates by certificate code", () => {
@@ -25,8 +35,13 @@ describe("Certificates Component", () => {
     cy.get('input[placeholder="Search..."]').first().type("CERT001");
 
     // Check if the table is filtered correctly
-    cy.get("tbody tr").should("have.length", 1);
-    cy.get("tbody tr td").first().should("contain", "CERT001");
+    cy.get('[data-testid="certificate-table-container"] tbody tr').should(
+      "have.length",
+      1
+    );
+    cy.get('[data-testid="certificate-table-container"] tbody tr td')
+      .first()
+      .should("contain", "CERT001");
   });
 
   it("should filter certificates by isActive status", () => {
@@ -34,9 +49,11 @@ describe("Certificates Component", () => {
     cy.get("select").eq(0).select("true");
 
     // Check if the table is filtered correctly
-    cy.get("tbody tr").each(($row) => {
-      cy.wrap($row).find("td").eq(2).should("contain", "Yes");
-    });
+    cy.get('[data-testid="certificate-table-container"] tbody tr').each(
+      ($row) => {
+        cy.wrap($row).find("td").eq(2).should("contain", "Yes");
+      }
+    );
   });
 
   it("should filter certificates by expiry status", () => {
@@ -44,16 +61,18 @@ describe("Certificates Component", () => {
     cy.get("select").eq(1).select("Yes");
 
     // Check if the table is filtered correctly
-    cy.get("tbody tr").each(($row) => {
-      cy.wrap($row).find("td").eq(3).should("contain", "Yes");
-    });
+    cy.get('[data-testid="certificate-table-container"] tbody tr').each(
+      ($row) => {
+        cy.wrap($row).find("td").eq(3).should("contain", "Yes");
+      }
+    );
   });
 
-//   it("should navigate to the users page when clicking View Users link", () => {
-//     // Click the View Users link
-//     cy.get("a").contains("View Users").first().click();
+  //   it("should navigate to the users page when clicking View Users link", () => {
+  //     // Click the View Users link
+  //     cy.get("a").contains("View Users").first().click();
 
-//     // Check if the URL is correct
-//     cy.url().should("include", "/users/CERT001");
-//   });
+  //     // Check if the URL is correct
+  //     cy.url().should("include", "/users/CERT001");
+  //   });
 });
